@@ -1,6 +1,6 @@
 # typical_server_client
 ## what ?
-This repo contains namely two files - a server and a client.  
+This repo contains essentially two files - a server and a client.  
 Here, as of 2023,  
 The Client is written in C++, runs on Linux Ubuntu 20,  
 The Server is written in Python, runs on Windows 10.  
