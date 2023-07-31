@@ -8,6 +8,10 @@ The Python server will listen on port '12345' until someone connects,
 After the connection, C++ client sends 6 random coordinates, with each value floating from 0 to 10.  
 Upon receiving the coorinates, the Python server will plot these 6 coorindates using matplotlib.  
 
+### Demo - 
+https://github.com/gkushalg01/typical_server_client/assets/57442239/57ca66c2-70bc-4895-9b52-84489a096496
+
+
 ## why ?
 This project is basically showing off tcp communication. Along the line it came to me that how do different programs interact or exchange information with each other like we do in ROS, but ros has simple publisher subscriber and the message is usually custom-defined/pre-built.  
 Now, what if I have two simple 1 page programs and I somehow want them to communicate with each other? While using a database is the easiest route, the thing is nobody wants to use a full fledged mongoDB/Postgres just to send 6 floats, lol.  
