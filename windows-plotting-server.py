@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 import socket
 
 HOST = '192.168.0.106' 
@@ -18,18 +19,21 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     lines = [ax.plot([], [], 'o')[0] for _ in range(6)]
     # plt.show(block=False)
     
-    try:
-        # Receive and plot data in real-time
-        while True:
-            data = conn.recv(1024)
-            if not data:
-                break
-            coords = np.frombuffer(data, dtype=np.float64).reshape((-1, 2))
-            for i in range(6):
-                plt.scatter(coords[i, 0], coords[i, 1])
-            fig.canvas.draw()
-            fig.canvas.flush_events()
-            plt.show()
-            
-    except KeyboardInterrupt:
-        print("Exiting...")
+    def plotter(i):
+        try:
+            # Receive and plot data in real-time
+            while True:
+                data = conn.recv(1024)
+                if not data:
+                    break
+                coords = np.frombuffer(data, dtype=np.float64).reshape((-1, 2))
+                for i in range(6):
+                    plt.scatter(coords[i, 0], coords[i, 1])
+                fig.canvas.draw()
+                fig.canvas.flush_events()
+
+        except KeyboardInterrupt:
+            print("Exiting...")
+
+    ani = FuncAnimation(fig, plotter, interval=1000)
+    plt.show()
