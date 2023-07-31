@@ -11,6 +11,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.listen()
     conn, addr = s.accept()
     print('Connected by', addr)
+    print("Receiving coordinates: ")
     
     # Set up the plot
     fig, ax = plt.subplots()
@@ -27,13 +28,16 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 if not data:
                     break
                 coords = np.frombuffer(data, dtype=np.float64).reshape((-1, 2))
+                print("[", end=" ")
                 for i in range(6):
+                    print("(", str(coords[i, 0]), " ,", str(coords[i, 1]), ")", end=" ")
                     plt.scatter(coords[i, 0], coords[i, 1])
+                print("]")
                 fig.canvas.draw()
                 fig.canvas.flush_events()
 
         except KeyboardInterrupt:
             print("Exiting...")
 
-    ani = FuncAnimation(fig, plotter, interval=1000)
+    ani = FuncAnimation(fig, plotter, interval=10)
     plt.show()
