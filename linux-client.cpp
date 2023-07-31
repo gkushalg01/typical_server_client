@@ -21,6 +21,8 @@ int main() {
         return 1;
     }
     
+
+    std::cout<<"Sending Coordinates: \n";
     // Generate random coordinates and send them to the Python program
     bool run = true;
     while (run) { 
@@ -29,10 +31,16 @@ int main() {
             std::mt19937 gen(rd());
             std::uniform_real_distribution<double> dist(0.0, 10.0);
             double coords[12];
+
+            std::cout<<"[ ";
             for (int i = 0; i < 6; i++) {
                 coords[i*2] = dist(gen);
                 coords[i*2+1] = dist(gen);
+                std::cout<<"("<<coords[i*2]<<", "<<coords[i*2+1]<<") ";
             }
+            std::cout<<" ]\n";
+
+            sleep(1);
             send(sockfd, (void*)coords, sizeof(coords), 0);
         } catch(std::exception e){
             std::cout<<"Exiting";
